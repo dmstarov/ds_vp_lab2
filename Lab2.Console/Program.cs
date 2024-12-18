@@ -79,8 +79,8 @@ class Program
             var newHouse = new House
             {
                 YearBuilt = 2024,
-                Owner = "Alex Ivanov",
-                Area = 340.0,
+                Owner = "Dima Test",
+                Area = 440.0,
                 Floors = 4
             };
 
@@ -89,8 +89,8 @@ class Program
 
             var newAddress = new Address
             {
-                Street = "Rigas st",
-                City = "Daugavpils",
+                Street = "Jelgavas st",
+                City = "Riga",
                 PostalCode = "Lv-****",
                 Country = "LV",
                 Notes = "New house",
@@ -156,7 +156,7 @@ class Program
     {
         using (var context = new HouseDbContext())
         {
-            var house = context.Houses.FirstOrDefault(h => h.Owner == "Denis Petrov");
+            var house = context.Houses.FirstOrDefault(h => h.Owner == "Antov Petrov");
 
             if (house != null)
             {
