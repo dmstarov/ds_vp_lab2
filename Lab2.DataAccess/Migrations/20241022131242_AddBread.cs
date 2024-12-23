@@ -5,13 +5,13 @@
 namespace Lab2.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class AddGarage : Migration
+    public partial class AddBread : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Garages",
+                name: "Breads",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -22,26 +22,26 @@ namespace Lab2.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Garages", x => x.Id);
+                    table.PrimaryKey("PK_Breads", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Garages_Houses_HouseId",
+                        name: "FK_Breads_Basket_BasketId",
                         column: x => x.HouseId,
-                        principalTable: "Houses",
+                        principalTable: "Basket",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Garages_HouseId",
-                table: "Garages",
-                column: "HouseId");
+                name: "IX_Breads_BasketId",
+                table: "Breads",
+                column: "BasketId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Garages");
+                name: "Breads");
         }
     }
 }

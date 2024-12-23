@@ -2,7 +2,7 @@
 
 namespace Lab2.DataAccess
 {
-    public class Garage
+    public class Bread
     {
         [Key]
         public int Id { get; set; }
@@ -12,7 +12,7 @@ namespace Lab2.DataAccess
 
         [Required]
         public double Size { get; set; }
-        public int HouseId { get; set; }
-        public House House { get; set; }
+        public int BasketId { get; set; }
+        public Basket Basket { get; set; }
     }
 }

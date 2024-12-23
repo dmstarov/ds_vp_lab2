@@ -5,34 +5,34 @@ class Program
     static void Main(string[] args)
     {
         Console.WriteLine("Choose an option:");
-        Console.WriteLine("1 - Filter houses by year");
-        Console.WriteLine("2 - Find address by city");
-        Console.WriteLine("3 - Add new house and address");
-        Console.WriteLine("4 - Delete house and address");
-        Console.WriteLine("5 - Update house and address");
-        Console.WriteLine("6 - Add garage");
+        Console.WriteLine("1 - Filter baskets by year");
+        Console.WriteLine("2 - Find delivery by city");
+        Console.WriteLine("3 - Add new baskets and delivery");
+        Console.WriteLine("4 - Delete baskets and delivery");
+        Console.WriteLine("5 - Update baskets and delivery");
+        Console.WriteLine("6 - Add Bread");
 
         var choice = Console.ReadLine();
 
         switch (choice)
         {
             case "1":
-                FilterHousesByYearBuilt();
+                FilterBasketByYearDiscount();
                 break;
             case "2":
-                FindAddressByCity();
+                FindDeliveryByCity();
                 break;
             case "3":
-                AddNewHouseAndAddress();
+                AddNewBasketAndAddress();
                 break;
             case "4":
-                DeleteHouseAndAddress();
+                DeleteBasketAndAddress();
                 break;
             case "5":
-                UpdateHouseAndAddress();
+                UpdateBasketAndAddress();
                 break;
             case "6":
-                AddGarage();
+                AddBread();
                 break;
             default:
                 Console.WriteLine("Invalid option.");
@@ -40,26 +40,26 @@ class Program
         }
     }
 
-    static void FilterHousesByYearBuilt()
+    static void FilterBasketByYearDiscount()
     {
-        using (var context = new HouseDbContext())
+        using (var context = new BasketDbContext())
         {
-            var filteredHouses = context.Houses
-                                        .Where(h => h.YearBuilt > 2000)
+            var filteredHouses = context.Basket
+                                        .Where(h => h.BasketDiscount > 2000)
                                         .ToList();
 
             foreach (var house in filteredHouses)
             {
-                Console.WriteLine($"House ID: {house.Id}, Owner: {house.Owner}, Year Built: {house.YearBuilt}");
+                Console.WriteLine($"Delivery ID: {house.Id}, Client: {house.Client}, Discount: {house.BasketDiscount}");
             }
         }
     }
 
-    static void FindAddressByCity()
+    static void FindDeliveryByCity()
     {
-        using (var context = new HouseDbContext())
+        using (var context = new BasketDbContext())
         {
-            var address = context.Addresses.FirstOrDefault(a => a.City == "Chicago");
+            var address = context.Delivery.FirstOrDefault(a => a.City == "Chicago");
 
             if (address != null)
             {
@@ -67,81 +67,81 @@ class Program
             }
             else
             {
-                Console.WriteLine("No address found in Chicago.");
+                Console.WriteLine("No delivery found in Chicago.");
             }
         }
     }
 
-    static void AddNewHouseAndAddress()
+    static void AddNewBasketAndAddress()
     {
-        using (var context = new HouseDbContext())
+        using (var context = new BasketDbContext())
         {
-            var newHouse = new House
+            var newBasket = new Basket
             {
-                YearBuilt = 2024,
-                Owner = "Dima Test",
-                Area = 440.0,
-                Floors = 4
+                BasketDiscount = 2024,
+                Client = "Dima Test",
+                Store = 440.0,
+                Priority = 4
             };
 
-            context.Houses.Add(newHouse);
+            context.Basket.Add(newBasket);
             context.SaveChanges();
 
-            var newAddress = new Address
+            var newDelivery = new Delivery
             {
                 Street = "Jelgavas st",
                 City = "Riga",
                 PostalCode = "Lv-****",
                 Country = "LV",
                 Notes = "New house",
-                HouseId = newHouse.Id
+                BasketId = newBasket.Id
             };
 
-            context.Addresses.Add(newAddress);
+            context.Delivery.Add(newDelivery);
             context.SaveChanges();
 
-            Console.WriteLine("New house and address added successfully.");
+            Console.WriteLine("New Basket and delivery added successfully.");
         }
     }
 
-    static void DeleteHouseAndAddress()
+    static void DeleteBasketAndAddress()
     {
-        using (var context = new HouseDbContext())
+        using (var context = new BasketDbContext())
         {
-            var addressToDelete = context.Addresses.FirstOrDefault(a => a.HouseId == 22);
+            var deliveryToDelete = context.Delivery.FirstOrDefault(a => a.BasketId == 22);
 
-            if (addressToDelete != null)
+            if (deliveryToDelete != null)
             {
-                context.Addresses.Remove(addressToDelete);
-                Console.WriteLine("Address deleted successfully.");
+                context.Delivery.Remove(deliveryToDelete);
+                Console.WriteLine("Delivery deleted successfully.");
             }
 
-            var houseToDelete = context.Houses.FirstOrDefault(h => h.Id == 22);
+            var basketToDelete = context.Basket.FirstOrDefault(h => h.Id == 22);
 
-            if (houseToDelete != null)
+            if (basketToDelete != null)
             {
-                context.Houses.Remove(houseToDelete);
-                Console.WriteLine("House deleted successfully.");
+                context.Basket.Remove(basketToDelete);
+                Console.WriteLine("Basket deleted successfully.");
             }
 
             context.SaveChanges();
         }
     }
 
-    static void UpdateHouseAndAddress()
+    static void UpdateBasketAndAddress()
     {
-        using (var context = new HouseDbContext())
+        using (var context = new BasketDbContext())
         {
-            var houseToUpdate = context.Houses.FirstOrDefault(h => h.Id == 3);
+            var basketToUpdate = context.Basket.FirstOrDefault(h => h.Id == 3);
 
-            if (houseToUpdate != null)
+            if (basketToUpdate != null)
             {
-                houseToUpdate.Owner = "Denis Petrov";
+                basketToUpdate.Client = "Denis Petrov";
                 context.SaveChanges();
-                Console.WriteLine("House updated successfully.");
+                Console.WriteLine("Basket updated successfully.");
             }
 
-            var addressToUpdate = context.Addresses.FirstOrDefault(a => a.HouseId == 3);
+            var addressToUpdate = context.Delivery.FirstOrDefault(a => a.BasketId == 3);
 
             if (addressToUpdate != null)
             {
@@ -152,29 +152,29 @@ class Program
         }
     }
 
-    static void AddGarage()
+    static void AddBread()
     {
-        using (var context = new HouseDbContext())
+        using (var context = new BasketDbContext())
         {
-            var house = context.Houses.FirstOrDefault(h => h.Owner == "Antov Petrov");
+            var bread = context.Basket.FirstOrDefault(h => h.Client == "Antov Petrov");
 
-            if (house != null)
+            if (bread != null)
             {
-                var newGarage = new Garage
+                var newBread = new Bread
                 {
-                    Type = "Underground",
+                    Type = "White",
                     Size = 50.0,
-                    HouseId = house.Id
+                    BasketId = bread.Id
                 };
 
-                context.Garages.Add(newGarage);
+                context.Bread.Add(newBread);
                 context.SaveChanges();
 
-                Console.WriteLine("Garage added successfullyv.");
+                Console.WriteLine("Bread added successfullyv.");
             }
             else
             {
-                Console.WriteLine("House not found.");
+                Console.WriteLine("Bread not found.");
             }
         }
     }

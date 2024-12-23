@@ -2,12 +2,12 @@
 
 namespace Lab2.DataAccess
 {
-    public class HouseDbContext : DbContext
+    public class BasketDbContext : DbContext
     {
-        public DbSet<House> Houses { get; set; }
-        public DbSet<Address> Addresses { get; set; }
-        public DbSet<Garage> Garages { get; set; }
-        public HouseDbContext()
+        public DbSet<Delivery> Delivery { get; set; }
+        public DbSet<Bread> Bread { get; set; }
+        public DbSet<Basket> Basket { get; set; }
+        public BasketDbContext()
         {
 
         }

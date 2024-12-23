@@ -2,7 +2,7 @@
 
 namespace Lab2.DataAccess
 {
-    public class Address
+    public class Delivery
     {
         [Key]
         public int Id { get; set; }
@@ -25,8 +25,8 @@ namespace Lab2.DataAccess
         [StringLength(200)]
         public string Notes { get; set; }
 
-        public int HouseId { get; set; }
+        public int BasketId { get; set; }
 
-        public House House { get; set; }
+        public Basket Basket { get; set; }
     }
 }

@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Lab2.DataAccess.Migrations
 {
-    [DbContext(typeof(HouseDbContext))]
-    partial class HouseDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(BasketDbContext))]
+    partial class BasketDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -21,7 +21,7 @@ namespace Lab2.DataAccess.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Lab2.DataAccess.Address", b =>
+            modelBuilder.Entity("Lab2.DataAccess.Delivery", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,7 +39,7 @@ namespace Lab2.DataAccess.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("HouseId")
+                    b.Property<int>("DeliveryId")
                         .HasColumnType("int");
 
                     b.Property<string>("Notes")
@@ -59,12 +59,12 @@ namespace Lab2.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HouseId");
+                    b.HasIndex("BasketId");
 
-                    b.ToTable("Addresses");
+                    b.ToTable("Delivery");
                 });
 
-            modelBuilder.Entity("Lab2.DataAccess.Garage", b =>
+            modelBuilder.Entity("Lab2.DataAccess.Bread", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -72,7 +72,7 @@ namespace Lab2.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("HouseId")
+                    b.Property<int>("DeliveryId")
                         .HasColumnType("int");
 
                     b.Property<double>("Size")
@@ -84,12 +84,12 @@ namespace Lab2.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HouseId");
+                    b.HasIndex("DeliveryId");
 
-                    b.ToTable("Garages");
+                    b.ToTable("Bread");
                 });
 
-            modelBuilder.Entity("Lab2.DataAccess.House", b =>
+            modelBuilder.Entity("Lab2.DataAccess.Basket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -103,44 +103,44 @@ namespace Lab2.DataAccess.Migrations
                     b.Property<int>("Floors")
                         .HasColumnType("int");
 
-                    b.Property<string>("Owner")
+                    b.Property<string>("Client")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("YearBuilt")
+                    b.Property<int>("Discount")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Houses");
+                    b.ToTable("Basket");
                 });
 
-            modelBuilder.Entity("Lab2.DataAccess.Address", b =>
+            modelBuilder.Entity("Lab2.DataAccess.Delivery", b =>
                 {
-                    b.HasOne("Lab2.DataAccess.House", "House")
-                        .WithMany("Addresses")
-                        .HasForeignKey("HouseId")
+                    b.HasOne("Lab2.DataAccess.Basket", "Basket")
+                        .WithMany("Delivery")
+                        .HasForeignKey("BasketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("House");
+                    b.Navigation("Basket");
                 });
 
-            modelBuilder.Entity("Lab2.DataAccess.Garage", b =>
+            modelBuilder.Entity("Lab2.DataAccess.Bread", b =>
                 {
-                    b.HasOne("Lab2.DataAccess.House", "House")
+                    b.HasOne("Lab2.DataAccess.Basket", "Basket")
                         .WithMany()
-                        .HasForeignKey("HouseId")
+                        .HasForeignKey("BasketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("House");
+                    b.Navigation("Basket");
                 });
 
-            modelBuilder.Entity("Lab2.DataAccess.House", b =>
+            modelBuilder.Entity("Lab2.DataAccess.Basket", b =>
                 {
-                    b.Navigation("Addresses");
+                    b.Navigation("Delivery");
                 });
 #pragma warning restore 612, 618
         }
